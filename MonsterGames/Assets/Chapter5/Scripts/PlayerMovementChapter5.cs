@@ -10,7 +10,6 @@ public class PlayerMovementChapter5 : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
-        Debug.Log($"Player MoveInput: {moveInput}");
     }
 
     void Update() {
