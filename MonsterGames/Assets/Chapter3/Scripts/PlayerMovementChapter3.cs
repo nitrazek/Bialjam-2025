@@ -62,8 +62,6 @@ public class PlayerMovementChapter3 : MonoBehaviour
         Vector3 delta = new Vector3(currentVelocity.x, currentVelocity.y, 0f) * X_SPEED * Time.deltaTime;
         Vector3 newPos = transform.position + delta;
 
-        //newPos = ClampPositionToCamera(newPos);
-
         transform.position = newPos;
         
         if (currentState == PlayerState.Idle)
@@ -80,21 +78,6 @@ public class PlayerMovementChapter3 : MonoBehaviour
             animator.speed = 1f;
             HandleRolling();
         }
-    }
-
-    Vector3 ClampPositionToCamera(Vector3 pos)
-    {
-        float dist = Mathf.Abs(pos.z - cam.transform.position.z);
-
-        float left = cam.ViewportToWorldPoint(new Vector3(0, 0, dist)).x;
-        float right = cam.ViewportToWorldPoint(new Vector3(1, 0, dist)).x;
-        float bottom = cam.ViewportToWorldPoint(new Vector3(0, 0, dist)).y;
-        float top = cam.ViewportToWorldPoint(new Vector3(0, 1, dist)).y;
-
-        pos.x = Mathf.Clamp(pos.x, left, right);
-        pos.y = Mathf.Clamp(pos.y, bottom, top);
-
-        return pos;
     }
 
     private void OnTriggerExit2D(Collider2D col)
