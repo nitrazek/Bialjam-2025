@@ -51,7 +51,7 @@ public class ChildSpawner : MonoBehaviour
     private void SpawnChild() {
         float randomX = Random.Range(_left, _right);
         float randomY = Random.Range(_bottom, _top);
-        Vector3 spawnPosition = new Vector3(randomX, randomY, 3);
+        Vector3 spawnPosition = new Vector3(randomX, randomY, 2);
 
         GameObject spawnedObject = Instantiate(childObject, spawnPosition, Quaternion.identity);
         spawnedObject.SetActive(true);
