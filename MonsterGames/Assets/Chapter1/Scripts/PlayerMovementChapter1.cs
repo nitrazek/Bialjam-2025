@@ -5,12 +5,15 @@ using UnityEngine.InputSystem;
 public class PlayerMovementChapter1 : MonoBehaviour
 {
     public float speed = 2f;
+    public Animator animator;
     public BoxCollider2D[] colliderObjects;
     private Vector2 moveInput = Vector2.zero;
 
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
+        animator.SetFloat("SpeedX", moveInput.x);
+        animator.SetFloat("SpeedY", moveInput.y);
     }
 
     void Update()
