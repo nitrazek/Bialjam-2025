@@ -403,6 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  animator: {fileID: 195129357}
   colliderObjects:
   - {fileID: 1065953938}
   - {fileID: 28523381}
