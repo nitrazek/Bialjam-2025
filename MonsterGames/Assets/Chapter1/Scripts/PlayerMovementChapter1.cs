@@ -5,12 +5,12 @@ using UnityEngine.InputSystem;
 public class PlayerMovementChapter1 : MonoBehaviour
 {
     public float speed = 2f;
+    public BoxCollider2D[] colliderObjects;
     private Vector2 moveInput = Vector2.zero;
 
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
-        
     }
 
     void Update()
@@ -19,6 +19,8 @@ public class PlayerMovementChapter1 : MonoBehaviour
         Vector3 newPos = transform.position + delta;
 
         newPos = ClampPositionToCamera(newPos);
+
+        newPos = ClampPositionToObject(newPos);
 
         transform.position = newPos;
     }
@@ -38,6 +40,28 @@ public class PlayerMovementChapter1 : MonoBehaviour
 
         pos.x = Mathf.Clamp(pos.x, left, right);
         pos.y = Mathf.Clamp(pos.y, bottom, top);
+
+        return pos;
+    }
+
+    Vector3 ClampPositionToObject(Vector3 pos)
+    {
+        if (colliderObjects == null)
+            return pos;
+
+        foreach (var col in colliderObjects)
+        {
+            if (col == null)
+                continue;
+
+            float closestY = Mathf.Abs(col.bounds.min.y) <= Mathf.Abs(col.bounds.max.y) ? col.bounds.min.y : col.bounds.max.y;
+            Debug.Log($"closestY {closestY}");
+            Debug.Log($"pos.y {pos.y}");
+
+            if((closestY < 0 && closestY > pos.y) || (closestY > 0 && closestY < pos.y))
+                pos.y = Mathf.Abs(pos.y) <= Mathf.Abs(closestY) ? pos.y : closestY;
+            Debug.Log($"pos.y new {pos.y}");
+        }
 
         return pos;
     }
