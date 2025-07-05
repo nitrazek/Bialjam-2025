@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 283274284}
   - component: {fileID: 283274283}
   - component: {fileID: 283274286}
+  - component: {fileID: 283274287}
   m_Layer: 0
   m_Name: Child
   m_TagString: Child
@@ -176,7 +177,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.625, y: 0.625}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -228,7 +229,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 1610600643, guid: abf8b702c07b2ff4fa2fdcc1e9a79973, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -249,7 +250,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -281,6 +282,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &283274287
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283274282}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 474f2623d86917f40af6894206025ab6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &313660850
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,6 +457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   animator: {fileID: 313660858}
+  spriteRenderer: {fileID: 313660856}
 --- !u!212 &313660856
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -711,6 +735,12 @@ MonoBehaviour:
   childObject: {fileID: 283274282}
   spawnInterval: 2
   lifetime: 5
+  startSprites:
+  - {fileID: 1610600643, guid: abf8b702c07b2ff4fa2fdcc1e9a79973, type: 3}
+  - {fileID: -2113104729, guid: abf8b702c07b2ff4fa2fdcc1e9a79973, type: 3}
+  animatorControllers:
+  - {fileID: 9100000, guid: 474f2623d86917f40af6894206025ab6, type: 2}
+  - {fileID: 9100000, guid: 4724ddc7ece36634aaf01f25fc4cd665, type: 2}
 --- !u!4 &1516185183
 Transform:
   m_ObjectHideFlags: 0
