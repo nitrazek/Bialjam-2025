@@ -11,8 +11,10 @@ public class ChildSpawner : MonoBehaviour
     public float spawnInterval = 10f;
     [SerializeField]
     public float lifetime = 5f;
-
-    private List<GameObject> _spawnedObjects = new List<GameObject>();
+    [SerializeField]
+    private Sprite[] startSprites;
+    [SerializeField]
+    private RuntimeAnimatorController[] animatorControllers;
     private float _left, _right, _bottom, _top;
     private float _timer;
 
@@ -25,7 +27,6 @@ public class ChildSpawner : MonoBehaviour
         _right = cam.ViewportToWorldPoint(new Vector3(1, 0, dist)).x;
         _bottom = cam.ViewportToWorldPoint(new Vector3(0, 0, dist)).y;
         _top = cam.ViewportToWorldPoint(new Vector3(0, 1, dist)).y;
-        Debug.Log($"Camera bounds: Left={_left}, Right={_right}, Bottom={_bottom}, Top={_top}");
 
         _timer = spawnInterval;
     }
@@ -38,14 +39,6 @@ public class ChildSpawner : MonoBehaviour
             SpawnChild();
             _timer = spawnInterval;
         }
-
-        //for (int i = _spawnedObjects.Count - 1; i >= 0; i--)
-        //{
-        //    if (_spawnedObjects[i] == null)
-        //    {
-        //        _spawnedObjects.RemoveAt(i);
-        //    }
-        //}
     }
 
     private void SpawnChild() {
@@ -54,6 +47,13 @@ public class ChildSpawner : MonoBehaviour
         Vector3 spawnPosition = new Vector3(randomX, randomY, 2);
 
         GameObject spawnedObject = Instantiate(childObject, spawnPosition, Quaternion.identity);
+        SpriteRenderer spriteRenderer = spawnedObject.GetComponent<SpriteRenderer>();
+        Animator animator = spawnedObject.GetComponent<Animator>();
+
+        int animatorIndex = Random.Range(0, animatorControllers.Length);
+        animator.runtimeAnimatorController = animatorControllers[animatorIndex];
+        spriteRenderer.sprite = startSprites[animatorIndex];
+
         spawnedObject.SetActive(true);
         Destroy(spawnedObject, lifetime);
     }
