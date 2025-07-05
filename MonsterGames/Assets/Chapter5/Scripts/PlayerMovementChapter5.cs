@@ -4,12 +4,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovementChapter5 : MonoBehaviour
 {
-    public float speed = 2f;
+    [SerializeField]
+    private float speed = 2f;
+    [SerializeField]
+    private Animator animator;
+
     private Vector2 moveInput = Vector2.zero;
 
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
+        animator.SetFloat("SpeedX", moveInput.x);
+        animator.SetFloat("SpeedY", moveInput.y);
     }
 
     void Update() {
