@@ -1,39 +1,21 @@
-﻿using UnityEngine;
+﻿using UnityEditorInternal;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovementChapter5 : MonoBehaviour
 {
-    public float speed = 5f;
-    public Camera cam;
-    [Tooltip("Czas zwalniania po puszczeniu klawisza (w sekundach)")]
-    public float decelerationTime = 0.3f;
+    public float speed = 2f;
+    private Vector2 moveInput = Vector2.zero;
 
-    float currentVelocity = 0f;
-
-    void Start()
+    void OnMove(InputValue value)
     {
-        if (cam == null) cam = Camera.main;
+        moveInput = value.Get<Vector2>();
+        Debug.Log($"Player MoveInput: {moveInput}");
     }
 
-    void Update()
-    {
-        var kb = Keyboard.current;
-        bool left = kb.aKey.isPressed;
-        bool right = kb.dKey.isPressed;
-
-        float target = 0f;
-        if (left && !right) target = -1f;
-        else if (right && !left) target = 1f;
-
-        currentVelocity = Mathf.MoveTowards(currentVelocity, target, Time.deltaTime / decelerationTime);
-
-        Vector3 delta = new Vector3(currentVelocity, 0, 0) * speed * Time.deltaTime;
+    void Update() {
+        Vector3 delta = new Vector3(moveInput.x, moveInput.y, 0) * speed * Time.deltaTime;
         Vector3 newPos = transform.position + delta;
-
-        Vector3 vp = cam.WorldToViewportPoint(newPos);
-        vp.x = Mathf.Clamp(vp.x, 0f, 1f);
-        Vector3 cw = cam.ViewportToWorldPoint(vp);
-
-        transform.position = new Vector3(cw.x, transform.position.y, transform.position.z);
+        transform.position = newPos;
     }
 }
