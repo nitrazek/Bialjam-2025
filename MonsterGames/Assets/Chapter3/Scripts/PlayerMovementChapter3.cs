@@ -11,13 +11,14 @@ public class PlayerMovementChapter3 : MonoBehaviour
     {
         Idle,
         Rolling,
-        Hit,
+        InGutter,
+        Outside,
     }
 
     PlayerState currentState = PlayerState.Idle;
 
     Vector2 moveInput = Vector2.zero;
-    Vector2 hitTarget = Vector2.zero;
+    Vector2 gutterTarget = Vector2.zero;
     private Vector2 currentVelocity = Vector2.zero;
     Camera cam;
 
@@ -46,10 +47,10 @@ public class PlayerMovementChapter3 : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 moveTowardsVec;
-        if (currentState == PlayerState.Hit && hitTarget != Vector2.zero)
+        if (currentState == PlayerState.InGutter && gutterTarget != Vector2.zero)
         {
             Vector2 playerPos2D = new Vector2(transform.position.x, 0f);
-            moveTowardsVec = hitTarget - playerPos2D;
+            moveTowardsVec = gutterTarget - playerPos2D;
         }
         else
         {
@@ -68,7 +69,7 @@ public class PlayerMovementChapter3 : MonoBehaviour
         {
             animator.speed = 0f;
         }
-        else if (currentState == PlayerState.Hit)
+        else if (currentState == PlayerState.InGutter)
         {
             animator.speed = .5f;
             HandleRolling();
@@ -77,6 +78,18 @@ public class PlayerMovementChapter3 : MonoBehaviour
         {
             animator.speed = 1f;
             HandleRolling();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.name.StartsWith("Pin_") || col.name.StartsWith("Diamond_"))
+        {
+            col.gameObject.SetActive(false);
+            GameData.Score++;
+        } else if (col.name == "BackCollider")
+        {
+            currentState = PlayerState.Outside;
         }
     }
 
@@ -112,26 +125,27 @@ public class PlayerMovementChapter3 : MonoBehaviour
         }
         else if (col.name.Contains("Gutter"))
         {
-            if (currentState == PlayerState.Hit)
+            if (currentState == PlayerState.InGutter)
             {
                 return;
             }
 
-            currentState = PlayerState.Hit;
+            currentState = PlayerState.InGutter;
 
             Bounds gutterBounds = col.bounds;
 
             if (col.name.StartsWith("r"))
             {
-                hitTarget = new Vector2(gutterBounds.min.x + .1f, 0);
+                gutterTarget = new Vector2(gutterBounds.min.x + .1f, 0);
             }
             else if (col.name.StartsWith("l"))
             {
-                hitTarget = new Vector2(gutterBounds.max.x - .1f, 0);
+                gutterTarget = new Vector2(gutterBounds.max.x - .1f, 0);
             }
             return;
         }
     }
+
     void HandleRolling()
     {
         Vector3 roll_vec = new Vector3(0f, Y_SPEED, 0f);
