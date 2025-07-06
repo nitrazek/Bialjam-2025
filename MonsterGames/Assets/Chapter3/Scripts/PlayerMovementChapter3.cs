@@ -120,9 +120,10 @@ public class PlayerMovementChapter3 : MonoBehaviour
         if (col.name.StartsWith("Pin_") || col.name.StartsWith("Diamond_"))
         {
             col.gameObject.SetActive(false);
-            GameData.Score++;
-        }
-        else if (currentRound == 2 && col.name == "JumpscarioTrigger")
+            GameData.BowlingScore++;
+        } else if (col.name == "BackCollider") {
+            GameData.BowlingScore++;
+        } else if (currentRound == 2 && col.name == "JumpscarioTrigger")
         {
             if (jumpscareTriggered != 0f)
             {
