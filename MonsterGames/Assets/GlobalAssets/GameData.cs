@@ -8,6 +8,8 @@ public class GameData
     public static int CleaningScore { get; set; } = 0;
     public static int NextScreenId {  get; set; } = 0;
     public const int TRANSITION_SCREEN_ID = 4;
+    public static bool showSecret = false;
+
     public static int Score
     {
         get

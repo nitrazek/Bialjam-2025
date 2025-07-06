@@ -4,7 +4,7 @@ public class AdultSpawner : MonoBehaviour
 {
     [SerializeField] public GameObject adultObject;
     [SerializeField] public GameObject sexyAdultObject;
-    [SerializeField] public float spawnInterval = 8f;
+    [SerializeField] public float spawnInterval = 5f;
     [SerializeField] public float lifetime = 10f;
     [SerializeField] private Sprite[] adultSprites;
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -40,8 +40,8 @@ public class AdultSpawner : MonoBehaviour
         float randomY = Random.Range(_bottom + (_height / 2f), _top - (_height / 2f));
         Vector3 spawnPosition = new Vector3(randomX, randomY, 2);
 
-        int choice = Random.Range(0, 3);
-        if(choice <= 2)
+        int choice = Random.Range(0, 2);
+        if(choice < 1)
         {
             spawnedObject = Instantiate(adultObject, spawnPosition, Quaternion.identity);
             SpriteRenderer spriteRenderer = spawnedObject.GetComponent<SpriteRenderer>();

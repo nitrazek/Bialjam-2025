@@ -33,6 +33,8 @@ public class PlayerInteraction : MonoBehaviour
             Destroy(other.gameObject);
             StartCoroutine(StopAnimationAndChangeSprite());
             GameData.HuggingScore++;
+            if (other.CompareTag("SexyAdult") && GameData.showSecret == false)
+                GameData.showSecret = true;
         }
         else if(other.CompareTag("Adult"))
         {
