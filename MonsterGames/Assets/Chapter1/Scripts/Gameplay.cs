@@ -26,8 +26,11 @@ public class Gameplay : MonoBehaviour
     [SerializeField] private float lifetime = 5f;
 
     private string[] possibleShoeSizes = { "Small", "Medium", "Large" };
-    private string[] possibleShoeColors = { "Red", "Blue", "Green", "Purple" };
-    private string[] possibleShoeStyles = { "Cool", "Hot", "Lame" };
+    [SerializeField] private Sprite[] sizeSprites;
+    private string[] possibleShoeColors = { "Red", "Green", "Blue", "Purple" };
+    [SerializeField] private Sprite[] colorSprites;
+    private string[] possibleShoeStyles = { "Cool", "Epic", "Lame" };
+    [SerializeField] private Sprite[] styleSprites;
 
     private List<Customer> activeCustomers = new();
     private float _left, _right;
@@ -64,19 +67,21 @@ public class Gameplay : MonoBehaviour
 
             float distChild = Vector3.Distance(player.transform.position, customer.Child.transform.position);
             if(distChild <= distanceThreshold) {
+                Debug.Log($"{customer.ShoeSize} {customer.ShoeColor} {customer.ShoeStyle}");
                 if(currentShoeSize == customer.ShoeSize &&
                    currentShoeColor == customer.ShoeColor &&
                    currentShoeStyle == customer.ShoeStyle)
                 {
                     GameData.ShoesScore++;
+                    currentShoeSize = null;
+                    currentShoeColor = null;
+                    currentShoeStyle = null;
                     Destroy(customer.Child);
                 }
 
                 SetDialogActive(customer.Child, "Dialog closed", false);
                 SetDialogActive(customer.Child, "Dialog open", true);
             } else {
-                
-
                 SetDialogActive(customer.Child, "Dialog open", false);
                 SetDialogActive(customer.Child, "Dialog closed", true);
             }
@@ -103,22 +108,69 @@ public class Gameplay : MonoBehaviour
         Customer newCustomer = new Customer
         {
             Child = spawnedObject,
-            //ShoeSize = possibleShoeSizes[Random.Range(0, possibleShoeSizes.Length)],
-            //ShoeColor = possibleShoeColors[Random.Range(0, possibleShoeColors.Length)],
-            //ShoeStyle = possibleShoeStyles[Random.Range(0, possibleShoeStyles.Length)]
-            ShoeSize = "Small",
-            ShoeColor = "Red",
-            ShoeStyle = "Cool"
+            ShoeSize = possibleShoeSizes[Random.Range(0, possibleShoeSizes.Length)],
+            ShoeColor = possibleShoeColors[Random.Range(0, possibleShoeColors.Length)],
+            ShoeStyle = possibleShoeStyles[Random.Range(0, possibleShoeStyles.Length)]
         };
         activeCustomers.Add(newCustomer);
+
+        GameObject dialog = spawnedObject.transform.Find("Dialog open").gameObject;
+        GameObject sizeSprite = dialog.transform.Find("Size").gameObject;
+        SpriteRenderer sizeRenderer = sizeSprite.GetComponent<SpriteRenderer>();
+        GameObject colorSprite = dialog.transform.Find("Color").gameObject;
+        SpriteRenderer colorRenderer = colorSprite.GetComponent<SpriteRenderer>();
+        GameObject styleSprite = dialog.transform.Find("Style").gameObject;
+        SpriteRenderer styleRenderer = styleSprite.GetComponent<SpriteRenderer>();
+
+        switch(newCustomer.ShoeSize)
+        {
+            case "Small":
+                sizeRenderer.sprite = sizeSprites[0];
+                break;
+            case "Medium":
+                sizeRenderer.sprite = sizeSprites[1];
+                break;
+            case "Large":
+                sizeRenderer.sprite = sizeSprites[2];
+                break;
+        }
+
+        switch(newCustomer.ShoeColor)
+        {
+            case "Red":
+                colorRenderer.sprite = colorSprites[0];
+                break;
+            case "Green":
+                colorRenderer.sprite = colorSprites[1];
+                break;
+            case "Blue":
+                colorRenderer.sprite = colorSprites[2];
+                break;
+            case "Purple":
+                colorRenderer.sprite = colorSprites[3];
+                break;
+        }
+
+        switch(newCustomer.ShoeStyle)
+        {
+            case "Cool":
+                styleRenderer.sprite = styleSprites[0];
+                break;
+            case "Epic":
+                styleRenderer.sprite = styleSprites[1];
+                break;
+            case "Lame":
+                styleRenderer.sprite = styleSprites[2];
+                break;
+        }
 
         Destroy(spawnedObject, lifetime);
     }
 
     private void SetDialogActive(GameObject child, string dialogName, bool active)
     {
-        Transform t = child.transform.Find(dialogName);
-        if (t != null && t.gameObject.activeSelf != active)
-            t.gameObject.SetActive(active);
+        Transform dialog = child.transform.Find(dialogName);
+        if (dialog != null && dialog.gameObject.activeSelf != active)
+            dialog.gameObject.SetActive(active);
     }
 }
