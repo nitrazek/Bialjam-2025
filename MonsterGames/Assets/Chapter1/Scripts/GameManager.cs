@@ -4,9 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private float timeLimit = 30f;
+    [SerializeField] private float timeLimit = 60f;
 
     void Start() {
+        GameData.resetScore();
         StartCoroutine(ChangeSceneAfterDelay(timeLimit));
     }
 

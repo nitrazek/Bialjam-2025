@@ -15,4 +15,12 @@ public class GameData
             return ShoesScore + BowlingScore + HuggingScore + CleaningScore;
         }
     }
+
+    public static void resetScore()
+    {
+        ShoesScore = 0;
+        BowlingScore = 0;
+        HuggingScore = 0;
+        CleaningScore = 0;
+    }
 }

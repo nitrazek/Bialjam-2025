@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 lookInput;
     private Vector3 currentMovement;
     private float verticalRotation;
+
+    private const int threshold = 20;
 
     void Awake()
     {
@@ -45,6 +49,20 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"PlayerController: OnTriggerEnter with {other.gameObject.name}");
         if(!other.CompareTag("Splatter") && !other.CompareTag("TrashBag")) return;
         Destroy(other.gameObject);
+        GameData.CleaningScore += 1;
+
+        if (GameData.CleaningScore >= threshold)
+        {
+            StartCoroutine(ChangeSceneAfterDelay(2));
+        }
+    }
+    private IEnumerator ChangeSceneAfterDelay(float delay)
+    {
+        Debug.Log($"Scena zmieni siê za {delay} sekund...");
+        yield return new WaitForSeconds(delay);
+
+        GameData.NextScreenId = 0;
+        SceneManager.LoadScene(GameData.TRANSITION_SCREEN_ID);
     }
 
     private void OnEnable() {

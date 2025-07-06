@@ -89,9 +89,9 @@ public class Gameplay : MonoBehaviour
 
         float distShelve = Vector3.Distance(player.transform.position, shelvePlaceHolder.transform.position);
         if(distShelve <= distanceThreshold) {
-            shelveDialog.SetActive(true);
+            if (shelveDialog.active == false) shelveDialog.SetActive(true);
         } else {
-            shelveDialog.SetActive(false);
+            if (shelveDialog.active == true) shelveDialog.SetActive(false);
         }
     }
 
