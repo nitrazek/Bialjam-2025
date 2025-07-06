@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
 public class PlayerMovementChapter3 : MonoBehaviour
@@ -109,10 +111,17 @@ public class PlayerMovementChapter3 : MonoBehaviour
         }
         else if (currentState == PlayerState.Outside)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(
-                UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
-            );
+            StartCoroutine(ChangeSceneAfterDelay(3));
         }
+    }
+
+    private IEnumerator ChangeSceneAfterDelay(float delay)
+    {
+        Debug.Log($"Scena zmieni się za {delay} sekund...");
+        yield return new WaitForSeconds(delay);
+
+        GameData.NextScreenId = 2;
+        SceneManager.LoadScene(GameData.TRANSITION_SCREEN_ID);
     }
 
     private void OnTriggerEnter2D(Collider2D col)

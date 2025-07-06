@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Cleaning/Cleaning.unity
     guid: 784b66ff5cbaed149bbd138ba4eb9e92
+  - enabled: 1
+    path: Assets/Transition/Transition.unity
+    guid: 693547b63110a2d4da08ace0a9ff62db
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

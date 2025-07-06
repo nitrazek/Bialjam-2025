@@ -10,10 +10,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ChangeSceneAfterDelay(timeLimit));
     }
 
-    // Coroutine do zmiany sceny po opóŸnieniu
     private IEnumerator ChangeSceneAfterDelay(float delay) {
         Debug.Log($"Scena zmieni siê za {delay} sekund...");
         yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene("Chapter3");
+
+        GameData.NextScreenId = 1;
+        SceneManager.LoadScene(GameData.TRANSITION_SCREEN_ID);
     }
 }
