@@ -33,14 +33,7 @@ public class PlayerMovementChapter3 : MonoBehaviour
 
     private void OnEnable()
     {
-        if (currentRound == 0)
-        {
-            tutorialObject.SetActive(true);
-        }
-        else
-        {
-            tutorialObject.SetActive(false);
-        }
+        tutorialObject.SetActive(true);
         jumpscarePlayer.Prepare();
         currentRound++;
         cam = Camera.main;
@@ -51,6 +44,7 @@ public class PlayerMovementChapter3 : MonoBehaviour
         moveInput = value.Get<Vector2>() * X_SPEED;
         moveInput.y = 0;
     }
+
     void OnSpace(InputValue value)
     {
         if (currentState == PlayerState.Idle)
@@ -123,6 +117,14 @@ public class PlayerMovementChapter3 : MonoBehaviour
         {
             col.gameObject.SetActive(false);
             GameData.Score++;
+        }
+        else if (currentRound == 2 && col.name == "JumpscarioTrigger")
+        {
+            if (jumpscareTriggered)
+            {
+                return; // Prevent multiple triggers
+            }
+            HandleJumpscare();
         }
     }
 
