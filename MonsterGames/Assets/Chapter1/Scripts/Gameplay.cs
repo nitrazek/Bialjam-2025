@@ -35,9 +35,9 @@ public class Gameplay : MonoBehaviour
     private List<Customer> activeCustomers = new();
     private float _left, _right;
     private float _timer;
-    public string? currentShoeSize = "Small";
-    public string? currentShoeColor = "Red";
-    public string? currentShoeStyle = "Cool";
+    public string? currentShoeSize = null;
+    public string? currentShoeColor = null;
+    public string? currentShoeStyle = null;
 
     void Start()
     {
