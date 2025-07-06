@@ -1035,7 +1035,7 @@ Transform:
   m_GameObject: {fileID: 445526627}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.32, z: 2}
+  m_LocalPosition: {x: 0, y: -1.27, z: 2}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1478,7 +1478,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.5434, y: 0.34264004, z: 0.82}
-  m_LocalScale: {x: 0.67, y: 0.5515999, z: 1}
+  m_LocalScale: {x: 0.5587383, y: 0.46, z: 0.83393776}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1074939151}
@@ -1916,7 +1916,8 @@ Transform:
   m_LocalPosition: {x: 0.008, y: 10.592, z: 2}
   m_LocalScale: {x: 3.7274802, y: 0.01979967, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1136794106}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1074939150
@@ -2051,12 +2052,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1136794103}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.983, y: 4.76, z: 2}
-  m_LocalScale: {x: 0.01, y: 1.0855961, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.26586327, y: -294.55035, z: 0}
+  m_LocalScale: {x: 0.0026827776, y: 54.829, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 911822528}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1190171151
 GameObject:
@@ -3089,8 +3090,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.5094, y: 0.07293999, z: 0.81999993}
-  m_LocalScale: {x: 0.67, y: 0.5516, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.56949997, y: 0.51, z: 0.84999996}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1074939151}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3656,7 +3657,6 @@ SceneRoots:
   - {fileID: 404239622}
   - {fileID: 2094913190}
   - {fileID: 911822528}
-  - {fileID: 1136794106}
   - {fileID: 76645235}
   - {fileID: 352485141}
   - {fileID: 1527986526}
