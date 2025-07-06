@@ -751,6 +751,7 @@ GameObject:
   - component: {fileID: 404239620}
   - component: {fileID: 404239619}
   - component: {fileID: 404239623}
+  - component: {fileID: 404239624}
   m_Layer: 0
   m_Name: Pixel Perfect Camera
   m_TagString: MainCamera
@@ -910,6 +911,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 350173644}
+--- !u!81 &404239624
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404239618}
+  m_Enabled: 1
 --- !u!1 &445526627
 GameObject:
   m_ObjectHideFlags: 0
