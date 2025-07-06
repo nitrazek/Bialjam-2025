@@ -58,12 +58,9 @@ public class PlayerMovementChapter1 : MonoBehaviour
                 continue;
 
             float closestY = Mathf.Abs(col.bounds.min.y) <= Mathf.Abs(col.bounds.max.y) ? col.bounds.min.y : col.bounds.max.y;
-            Debug.Log($"closestY {closestY}");
-            Debug.Log($"pos.y {pos.y}");
 
             if((closestY < 0 && closestY > pos.y) || (closestY > 0 && closestY < pos.y))
                 pos.y = Mathf.Abs(pos.y) <= Mathf.Abs(closestY) ? pos.y : closestY;
-            Debug.Log($"pos.y new {pos.y}");
         }
 
         return pos;
