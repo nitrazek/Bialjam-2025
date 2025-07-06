@@ -35,7 +35,7 @@ public class PlayerMovementChapter3 : MonoBehaviour
 
     private void OnEnable()
     {
-        GameObject.FindGameObjectWithTag("Music").GetComponent<MusicClass>().PlayMusic();
+        //GameObject.FindGameObjectWithTag("Music").GetComponent<MusicClass>().PlayMusic();
         tutorialObject.SetActive(true);
         jumpscarePlayer.Prepare();
         currentRound++;

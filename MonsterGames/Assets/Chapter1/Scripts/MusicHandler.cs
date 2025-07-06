@@ -5,7 +5,7 @@ public class MusicClass : MonoBehaviour
     private AudioSource _audioSource;
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(transform.root.gameObject);
         _audioSource = GetComponent<AudioSource>();
     }
 
