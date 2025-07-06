@@ -7,6 +7,8 @@ TagManager:
   - Child
   - Splatter
   - TrashBag
+  - Adult
+  - SexyAdult
   layers:
   - Default
   - TransparentFX
