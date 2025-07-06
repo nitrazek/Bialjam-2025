@@ -5,7 +5,7 @@ using UnityEngine.Video;
 public class PlayerMovementChapter3 : MonoBehaviour
 {
     private static int currentRound = 0;
-    private bool jumpscareTriggered = false;
+    private float jumpscareTriggered = 0f;
 
     public BoxCollider2D bgCollider;
     public Animator animator;
@@ -58,10 +58,14 @@ public class PlayerMovementChapter3 : MonoBehaviour
     {
         if (jumpscarePlayer.isPlaying)
         {
+            if (jumpscareTriggered + 1f < Time.time)
+            {
+                jumpscarePlayer.Stop();
+            }
             return; // Skip updates while jumpscare is playing
         }
         else if (
-            !jumpscareTriggered &&
+            jumpscareTriggered == 0f &&
             currentState == PlayerState.Outside &&
             currentRound == 3
         )
@@ -121,7 +125,7 @@ public class PlayerMovementChapter3 : MonoBehaviour
             GameData.BowlingScore++;
         } else if (currentRound == 2 && col.name == "JumpscarioTrigger")
         {
-            if (jumpscareTriggered)
+            if (jumpscareTriggered != 0f)
             {
                 return; // Prevent multiple triggers
             }
@@ -205,7 +209,7 @@ public class PlayerMovementChapter3 : MonoBehaviour
 
     void HandleJumpscare()
     {
-        jumpscareTriggered = true;
+        jumpscareTriggered = Time.time;
         jumpscarePlayer.Play();
     }
 }
