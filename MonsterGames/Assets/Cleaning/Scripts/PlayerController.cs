@@ -5,6 +5,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float mouseSensitivity = 0.5f;
+    [SerializeField] private float width = 100f;
+    [SerializeField] private float height = 100f;
     [SerializeField] private InputActionAsset playerControls;
 
     private CharacterController characterController;
@@ -37,6 +39,12 @@ public class PlayerController : MonoBehaviour
         HandleRotation();
     }
 
+    private void OnTriggerEnter(Collider other) {
+        Debug.Log($"PlayerController: OnTriggerEnter with {other.gameObject.name}");
+        if(!other.CompareTag("Splatter") && !other.CompareTag("TrashBag")) return;
+        Destroy(other.gameObject);
+    }
+
     private void OnEnable() {
         moveAction.Enable();
         lookAction.Enable();
@@ -55,8 +63,8 @@ public class PlayerController : MonoBehaviour
         Vector3 horizontalMovement = new Vector3(horizontalSpeed, 0, verticalSpeed);
         horizontalMovement = transform.rotation * horizontalMovement;
 
-        currentMovement.x = horizontalMovement.x;
-        currentMovement.z = horizontalMovement.z;
+        currentMovement.x = Mathf.Clamp(horizontalMovement.x, -width / 2f, width / 2f);
+        currentMovement.z = Mathf.Clamp(horizontalMovement.z, -width / 2f, width / 2f);
         characterController.Move(currentMovement * Time.deltaTime);
     }
 

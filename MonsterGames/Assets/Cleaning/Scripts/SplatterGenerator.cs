@@ -4,8 +4,8 @@ public class SplatterGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject splatterObject;
     [SerializeField] private Sprite[] splatterSprites;
-    [SerializeField] private float width = 140f;
-    [SerializeField] private float height = 140f;
+    [SerializeField] private float width = 100f;
+    [SerializeField] private float height = 100f;
     [SerializeField] private int splatterAmount = 30;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
