@@ -15,7 +15,7 @@ public class HuggingGameManager : MonoBehaviour
         Debug.Log($"Scena zmieni siê za {delay} sekund...");
         yield return new WaitForSeconds(delay);
 
-        if (GameData.showSecret)
+        if (GameData.showSecret == true)
         {
             GameData.showSecret = false;
             secretDialog.SetActive(true);

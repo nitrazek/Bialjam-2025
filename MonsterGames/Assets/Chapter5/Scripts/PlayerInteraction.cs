@@ -21,13 +21,22 @@ public class PlayerInteraction : MonoBehaviour
         Debug.Log($"PlayerInteraction: OnTriggerEnter with {other.gameObject.name}");
         if(other.CompareTag("Child") || other.CompareTag("SexyAdult"))
         {
-            RuntimeAnimatorController controller = other.GetComponent<Animator>().runtimeAnimatorController;
-            for(int i = 0; i < childControllers.Length; i++) {
-                if(controller == childControllers[i]) {
-                    Debug.Log($"Child controller matched: {controller.name}");
-                    newSprite = huggingSprites[i];
-                    break;
+            if (other.CompareTag("Child"))
+            {
+                RuntimeAnimatorController controller = other.GetComponent<Animator>().runtimeAnimatorController;
+                for (int i = 0; i < childControllers.Length; i++)
+                {
+                    if (controller == childControllers[i])
+                    {
+                        Debug.Log($"Child controller matched: {controller.name}");
+                        newSprite = huggingSprites[i];
+                        break;
+                    }
                 }
+            }
+            else if(other.CompareTag("SexyAdult"))
+            {
+                newSprite = huggingSprites[3];
             }
 
             Destroy(other.gameObject);
@@ -36,7 +45,7 @@ public class PlayerInteraction : MonoBehaviour
             if (other.CompareTag("SexyAdult") && GameData.showSecret == false)
                 GameData.showSecret = true;
         }
-        else if(other.CompareTag("Adult"))
+        else if (other.CompareTag("Adult"))
         {
             Destroy(other.gameObject);
             GameData.HuggingScore--;
