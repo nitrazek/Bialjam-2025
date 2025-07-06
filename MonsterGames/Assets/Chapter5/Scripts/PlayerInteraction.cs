@@ -27,7 +27,7 @@ public class PlayerInteraction : MonoBehaviour
         Debug.Log($"Scena zmieni siê za {delay} sekund...");
         yield return new WaitForSeconds(delay);
 
-        GameData.NextScreenId = 2;
+        GameData.NextScreenId = 3;
         SceneManager.LoadScene(GameData.TRANSITION_SCREEN_ID);
     }
 }
