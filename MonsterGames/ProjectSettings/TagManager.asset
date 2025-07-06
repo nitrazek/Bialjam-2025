@@ -9,6 +9,7 @@ TagManager:
   - TrashBag
   - Adult
   - SexyAdult
+  - Music
   layers:
   - Default
   - TransparentFX
