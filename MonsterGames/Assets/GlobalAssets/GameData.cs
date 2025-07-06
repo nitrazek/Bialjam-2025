@@ -10,7 +10,7 @@ public class GameData
     {
         get
         {
-            return ShoesScore + HuggingScore + CleaningScore;
+            return ShoesScore + BowlingScore + HuggingScore + CleaningScore;
         }
     }
 }

@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Video;
 
 public class PlayerMovementChapter3 : MonoBehaviour
 {
+    private static int currentRound = 0;
+    private bool jumpscareTriggered = false;
 
     public BoxCollider2D bgCollider;
     public Animator animator;
+    public VideoPlayer jumpscarePlayer;
+    public GameObject tutorialObject;
 
     enum PlayerState
     {
@@ -28,6 +33,9 @@ public class PlayerMovementChapter3 : MonoBehaviour
 
     private void OnEnable()
     {
+        tutorialObject.SetActive(true);
+        jumpscarePlayer.Prepare();
+        currentRound++;
         cam = Camera.main;
     }
 
@@ -36,16 +44,32 @@ public class PlayerMovementChapter3 : MonoBehaviour
         moveInput = value.Get<Vector2>() * X_SPEED;
         moveInput.y = 0;
     }
+
     void OnSpace(InputValue value)
     {
         if (currentState == PlayerState.Idle)
         {
+            tutorialObject.SetActive(false);
             currentState = PlayerState.Rolling;
         }
     }
 
     void FixedUpdate()
     {
+        if (jumpscarePlayer.isPlaying)
+        {
+            return; // Skip updates while jumpscare is playing
+        }
+        else if (
+            !jumpscareTriggered &&
+            currentState == PlayerState.Outside &&
+            currentRound == 3
+        )
+        {
+            HandleJumpscare();
+            return;
+        }
+
         Vector2 moveTowardsVec;
         if (currentState == PlayerState.InGutter && gutterTarget != Vector2.zero)
         {
@@ -64,7 +88,7 @@ public class PlayerMovementChapter3 : MonoBehaviour
         Vector3 newPos = transform.position + delta;
 
         transform.position = newPos;
-        
+
         if (currentState == PlayerState.Idle)
         {
             animator.speed = 0f;
@@ -79,6 +103,12 @@ public class PlayerMovementChapter3 : MonoBehaviour
             animator.speed = 1f;
             HandleRolling();
         }
+        else if (currentState == PlayerState.Outside)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(
+                UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
+            );
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -87,9 +117,15 @@ public class PlayerMovementChapter3 : MonoBehaviour
         {
             col.gameObject.SetActive(false);
             GameData.BowlingScore++;
-        } else if (col.name == "BackCollider")
+        } else if (col.name == "BackCollider") {
+            GameData.BowlingScore++;
+        } else if (currentRound == 2 && col.name == "JumpscarioTrigger")
         {
-            currentState = PlayerState.Outside;
+            if (jumpscareTriggered)
+            {
+                return; // Prevent multiple triggers
+            }
+            HandleJumpscare();
         }
     }
 
@@ -98,6 +134,10 @@ public class PlayerMovementChapter3 : MonoBehaviour
         if (col.name.Contains("Gutter"))
         {
             currentVelocity = Vector2.zero;
+        }
+        else if (col.name == "BackCollider")
+        {
+            currentState = PlayerState.Outside;
         }
     }
 
@@ -161,5 +201,11 @@ public class PlayerMovementChapter3 : MonoBehaviour
         }
 
         transform.Translate(roll_vec);
+    }
+
+    void HandleJumpscare()
+    {
+        jumpscareTriggered = true;
+        jumpscarePlayer.Play();
     }
 }
