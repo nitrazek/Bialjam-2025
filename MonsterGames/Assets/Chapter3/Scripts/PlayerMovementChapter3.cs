@@ -35,6 +35,7 @@ public class PlayerMovementChapter3 : MonoBehaviour
 
     private void OnEnable()
     {
+        GameObject.FindGameObjectWithTag("Music").GetComponent<MusicClass>().PlayMusic();
         tutorialObject.SetActive(true);
         jumpscarePlayer.Prepare();
         currentRound++;
@@ -60,7 +61,7 @@ public class PlayerMovementChapter3 : MonoBehaviour
     {
         if (jumpscarePlayer.isPlaying)
         {
-            if (jumpscareTriggered + 1f < Time.time)
+            if (jumpscareTriggered + .5f < Time.time)
             {
                 jumpscarePlayer.Stop();
             }
