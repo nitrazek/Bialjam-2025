@@ -1,6 +1,6 @@
-using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -14,6 +14,7 @@ public class PlayerInteraction : MonoBehaviour
     private void Start() {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        GameData.HuggingScore = 0;
     }
 
     void OnTriggerEnter2D(Collider2D other) {

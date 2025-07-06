@@ -10,7 +10,7 @@ public class TransitionScreen : MonoBehaviour
 
     void Start()
     {
-        scoreText.text = $"Points: {GameData.ShoesScore}";
+        scoreText.text = $"Points: {GameData.Score}";
         StartCoroutine(LoadTargetAfterDelay());
     }
 

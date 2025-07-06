@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float width = 100f;
     [SerializeField] private float height = 100f;
     [SerializeField] private InputActionAsset playerControls;
+    [SerializeField] private BoxCollider floor;
 
     private CharacterController characterController;
     private Camera mainCamera;
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         HandleRotation();
+        EnforceFloorBoundary();
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -56,7 +58,7 @@ public class PlayerController : MonoBehaviour
     }
     private void HandleMovement()
     {
-        float verticalSpeed = moveInput.y * moveSpeed;
+        float verticalSpeed = moveInput.y * moveSpeed; 
         float horizontalSpeed = moveInput.x * moveSpeed;
         Debug.Log($"Vertical Speed: {verticalSpeed}, Horizontal Speed: {horizontalSpeed}");
 
@@ -76,5 +78,49 @@ public class PlayerController : MonoBehaviour
         verticalRotation -= lookInput.y * mouseSensitivity;
         verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
         mainCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+    }
+
+    private void EnforceFloorBoundary()
+    {
+        if (floor == null) return;
+
+        float floorTopZ = floor.bounds.max.z;
+        float floorBottomZ = floor.bounds.min.z;
+        float floorLeftX = floor.bounds.min.x;
+        float floorRightX = floor.bounds.max.x;
+
+        Vector3 pos = transform.position;
+
+        if (pos.z > floorTopZ)
+        {
+            pos.z = floorTopZ;
+            characterController.enabled = false;
+            transform.position = pos;
+            characterController.enabled = true;
+        }
+
+        if (pos.z < floorBottomZ)
+        {
+            pos.z = floorBottomZ;
+            characterController.enabled = false;
+            transform.position = pos;
+            characterController.enabled = true;
+        }
+
+        if (pos.x < floorLeftX)
+        {
+            pos.x = floorLeftX;
+            characterController.enabled = false;
+            transform.position = pos;
+            characterController.enabled = true;
+        }
+
+        if (pos.x > floorRightX)
+        {
+            pos.x = floorRightX;
+            characterController.enabled = false;
+            transform.position = pos;
+            characterController.enabled = true;
+        }
     }
 }
