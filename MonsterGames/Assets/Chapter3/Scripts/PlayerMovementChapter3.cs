@@ -86,7 +86,7 @@ public class PlayerMovementChapter3 : MonoBehaviour
         if (col.name.StartsWith("Pin_") || col.name.StartsWith("Diamond_"))
         {
             col.gameObject.SetActive(false);
-            GameData.Score++;
+            GameData.BowlingScore++;
         } else if (col.name == "BackCollider")
         {
             currentState = PlayerState.Outside;
