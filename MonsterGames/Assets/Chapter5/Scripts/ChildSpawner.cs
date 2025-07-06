@@ -15,11 +15,16 @@ public class ChildSpawner : MonoBehaviour
     private Sprite[] startSprites;
     [SerializeField]
     private RuntimeAnimatorController[] animatorControllers;
-    private float _left, _right, _bottom, _top;
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+    private float _left, _right, _bottom, _top, _width, _height;
     private float _timer;
 
     void Start()
     {
+        _width = spriteRenderer.bounds.size.x;
+        _height = spriteRenderer.bounds.size.y;
+        
         Camera cam = Camera.main;
         float dist = Mathf.Abs(transform.position.z - cam.transform.position.z);
 
@@ -42,8 +47,8 @@ public class ChildSpawner : MonoBehaviour
     }
 
     private void SpawnChild() {
-        float randomX = Random.Range(_left, _right);
-        float randomY = Random.Range(_bottom, _top);
+        float randomX = Random.Range(_left + (_width / 2f), _right - (_width / 2f));
+        float randomY = Random.Range(_bottom + (_height / 2f), _top - (_height / 2f));
         Vector3 spawnPosition = new Vector3(randomX, randomY, 2);
 
         GameObject spawnedObject = Instantiate(childObject, spawnPosition, Quaternion.identity);
