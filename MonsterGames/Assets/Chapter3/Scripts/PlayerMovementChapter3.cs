@@ -75,6 +75,10 @@ public class PlayerMovementChapter3 : MonoBehaviour
             HandleJumpscare();
             return;
         }
+        else if (currentRound == 4)
+        {
+            StartCoroutine(ChangeSceneAfterDelay(0));
+        }
 
         Vector2 moveTowardsVec;
         if (currentState == PlayerState.InGutter && gutterTarget != Vector2.zero)
@@ -111,7 +115,9 @@ public class PlayerMovementChapter3 : MonoBehaviour
         }
         else if (currentState == PlayerState.Outside)
         {
-            StartCoroutine(ChangeSceneAfterDelay(3));
+            SceneManager.LoadScene(
+                SceneManager.GetActiveScene().name
+            );
         }
     }
 
